@@ -1,0 +1,58 @@
+<div class="topics-container">
+  <header class="header">
+    <button class="close-btn" (click)="onClose()" aria-label="סגור">
+      <span class="close-icon">✕</span>
+    </button>
+    <div class="header-content">
+      <div class="logo">📚</div>
+      <h1 class="title">מרכז הדרכה</h1>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="search-container">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder="חפש נושאים..."
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange(searchQuery)"
+          class="search-input"
+        />
+      </div>
+    </div>
+
+    <div class="topics-section">
+      <div *ngIf="loading" class="loading">
+        <div class="spinner"></div>
+        <span>טוען נושאים...</span>
+      </div>
+
+      <div *ngIf="!loading && topics.length === 0" class="no-results">
+        <span class="no-results-icon">📝</span>
+        <p>לא נמצאו נושאים</p>
+      </div>
+
+      <div *ngIf="!loading && topics.length > 0" class="topics-list">
+        <div
+          *ngFor="let topic of topics"
+          class="topic-item"
+          (click)="onTopicClick(topic)"
+        >
+          <div class="topic-content">
+            <div class="topic-icon">{{ topic.icon }}</div>
+            <div class="topic-info">
+              <h3 class="topic-title">{{ topic.title }}</h3>
+              <span class="tip-count">{{ topic.tipCount }} טיפים</span>
+            </div>
+            <div class="topic-badges">
+              <span *ngIf="topic.isNew" class="new-badge">חדש</span>
+              <span class="arrow">›</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

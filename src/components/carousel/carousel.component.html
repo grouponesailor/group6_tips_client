@@ -1,0 +1,95 @@
+<div class="carousel-container">
+  <header class="header">
+    <button class="close-btn" (click)="onClose()" aria-label="סגור">
+      <span class="close-icon">✕</span>
+    </button>
+    <div class="header-content">
+      <h1 class="topic-title">{{ currentTopic?.title }}</h1>
+      <span class="topic-subtitle">{{ currentTopic?.title }}</span>
+    </div>
+  </header>
+
+  <div class="carousel-content" *ngIf="currentTip">
+    <div class="tip-image-container">
+      <div class="tip-image" *ngIf="currentTip.imageUrl">
+        <img [src]="currentTip.imageUrl" [alt]="currentTip.title" />
+      </div>
+    </div>
+
+    <div class="tip-details">
+      <h2 class="tip-title">{{ currentTip.title }}</h2>
+      
+      <div class="tip-content">
+        <p class="tip-text">{{ currentTip.content }}</p>
+      </div>
+
+      <div class="tip-actions">
+        <button 
+          class="action-btn primary" 
+          (click)="markAsHelpful()"
+          [disabled]="currentIndex === tips.length - 1"
+        >
+          הבא
+        </button>
+        <div class="progress-indicator">
+          {{ currentIndex + 1 }}/{{ tips.length }}
+        </div>
+        <button 
+          class="action-btn secondary" 
+          (click)="skipTip()"
+          [disabled]="currentIndex === tips.length - 1"
+        >
+          דלג
+        </button>
+      </div>
+
+      <div class="feedback-section">
+        <p class="feedback-question">האם הטיפ עזר?</p>
+        <div class="feedback-buttons">
+          <button 
+            class="feedback-btn like" 
+            (click)="giveFeedback(true)" 
+            aria-label="אהבתי"
+            [class.active]="feedbackGiven === 'positive'"
+          >
+            <span class="thumb-icon">👍</span>
+          </button>
+          <button 
+            class="feedback-btn dislike" 
+            (click)="giveFeedback(false)" 
+            aria-label="לא אהבתי"
+            [class.active]="feedbackGiven === 'negative'"
+          >
+            <span class="thumb-icon">👎</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-navigation">
+    <button 
+      class="nav-btn"
+      [disabled]="currentIndex === 0"
+      (click)="previousTip()"
+      aria-label="טיפ קודם"
+    >
+      <span class="nav-icon">‹</span>
+    </button>
+
+    <div class="ai-assistant" (click)="openAIChat()">
+      <span class="ai-icon">🤖</span>
+      <span class="ai-text">לא הבנתי? רוצים עוד מידע שאלו כאן</span>
+      <span class="ai-badge">AI</span>
+    </div>
+
+    <button 
+      class="nav-btn"
+      [disabled]="currentIndex === tips.length - 1"
+      (click)="nextTip()"
+      aria-label="טיפ הבא"
+    >
+      <span class="nav-icon">›</span>
+    </button>
+  </div>
+</div>

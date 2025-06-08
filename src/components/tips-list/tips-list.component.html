@@ -1,0 +1,54 @@
+<div class="tips-container">
+  <header class="header">
+    <button class="back-btn" (click)="onBack()" aria-label="חזור">
+      <span class="back-icon">‹</span>
+    </button>
+    <div class="header-content">
+      <div class="topic-icon">{{ currentTopic?.icon }}</div>
+      <h1 class="title">{{ currentTopic?.title }}</h1>
+    </div>
+  </header>
+
+  <div class="content">
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <span>טוען טיפים...</span>
+    </div>
+
+    <div *ngIf="!loading && tips.length === 0" class="no-results">
+      <span class="no-results-icon">💡</span>
+      <p>לא נמצאו טיפים לנושא זה</p>
+    </div>
+
+    <div *ngIf="!loading && tips.length > 0" class="tips-list">
+      <div
+        *ngFor="let tip of tips; let i = index"
+        class="tip-item"
+        [class.read]="tip.isRead"
+        (click)="onTipClick(tip, i)"
+      >
+        <div class="tip-content">
+          <div class="tip-image" *ngIf="tip.imageUrl">
+            <img [src]="tip.imageUrl" [alt]="tip.title" />
+          </div>
+          <div class="tip-info">
+            <h3 class="tip-title">{{ tip.title }}</h3>
+            <p class="tip-preview">{{ tip.content | slice:0:120 }}...</p>
+            <div class="tip-meta">
+              <div class="badges-container">
+                <span *ngIf="tip.isNew" class="new-badge">חדש</span>
+                <span *ngIf="tip.isRead" class="read-badge">
+                  <span class="check-icon">✓</span>
+                  נקרא
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="tip-arrow">
+            <span class="arrow">›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,263 @@
+.topics-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 600px;
+  direction: rtl;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+  color: white;
+
+  .close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .close-icon {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .logo {
+      font-size: 28px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+}
+
+.content {
+  padding: 24px;
+}
+
+.search-container {
+  margin-bottom: 24px;
+
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 0 16px;
+    transition: all 0.2s ease;
+
+    &:focus-within {
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.3);
+    }
+
+    .search-icon {
+      margin-left: 8px;
+      color: #8e8e93;
+      font-size: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 16px 0;
+      font-size: 16px;
+      color: #1d1d1f;
+      direction: rtl;
+
+      &::placeholder {
+        color: #8e8e93;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  color: #8e8e93;
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f0f0f0;
+    border-top: 3px solid #007AFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  color: #8e8e93;
+
+  .no-results-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topic-item {
+  background: #fff;
+  border: 1px solid #e5e5e7;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #007AFF;
+  }
+
+  .topic-content {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 16px;
+
+    .topic-icon {
+      font-size: 32px;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 122, 255, 0.1);
+      border-radius: 12px;
+    }
+
+    .topic-info {
+      flex: 1;
+
+      .topic-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin: 0 0 4px 0;
+      }
+
+      .tip-count {
+        font-size: 14px;
+        color: #8e8e93;
+      }
+    }
+
+    .topic-badges {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .new-badge {
+        background: #34c759;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .arrow {
+        font-size: 20px;
+        color: #c7c7cc;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .topics-container {
+    margin: 16px;
+    min-height: calc(100vh - 32px);
+  }
+
+  .header {
+    padding: 16px 20px;
+
+    .header-content {
+      .logo {
+        font-size: 24px;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .topic-item {
+    .topic-content {
+      padding: 16px;
+
+      .topic-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+      }
+
+      .topic-info {
+        .topic-title {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
