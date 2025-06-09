@@ -17,6 +17,22 @@
   background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
   color: white;
 
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .logo {
+      font-size: 28px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
   .close-btn {
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -37,22 +53,6 @@
     .close-icon {
       font-size: 18px;
       font-weight: 500;
-    }
-  }
-
-  .header-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    .logo {
-      font-size: 28px;
-    }
-
-    .title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 0;
     }
   }
 }
@@ -122,6 +122,168 @@
   }
 }
 
+.results-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin: 0 0 16px 0;
+
+  .results-icon {
+    font-size: 20px;
+  }
+}
+
+.search-results {
+  margin-bottom: 32px;
+  
+  .tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.tip-item {
+  background: #fff;
+  border: 1px solid #e5e5e7;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+
+  &.search-result {
+    border-left: 4px solid #007AFF;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #007AFF;
+  }
+
+  &.read {
+    background: #f8f9fa;
+    border-color: #d1e7dd;
+
+    .tip-title {
+      color: #6c757d;
+    }
+
+    .tip-preview {
+      color: #8e8e93;
+    }
+  }
+
+  .tip-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+
+    .tip-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .tip-info {
+      flex: 1;
+      min-width: 0;
+
+      .tip-topic {
+        margin-bottom: 4px;
+
+        .topic-name {
+          font-size: 12px;
+          color: #007AFF;
+          font-weight: 500;
+          background: rgba(0, 122, 255, 0.1);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+      }
+
+      .tip-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin: 0 0 6px 0;
+        transition: color 0.2s ease;
+      }
+
+      .tip-preview {
+        font-size: 13px;
+        color: #8e8e93;
+        line-height: 1.4;
+        margin: 0 0 8px 0;
+        transition: color 0.2s ease;
+      }
+
+      .tip-meta {
+        .badges-container {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          flex-wrap: wrap;
+
+          .new-badge {
+            background: #34c759;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+          }
+
+          .read-badge {
+            background: #007AFF;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+
+            .check-icon {
+              font-size: 9px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    .tip-arrow {
+      .arrow {
+        font-size: 18px;
+        color: #c7c7cc;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+    }
+  }
+
+  &.read .tip-content .tip-arrow .arrow {
+    color: #8e8e93;
+  }
+}
+
 .no-results {
   text-align: center;
   padding: 48px 24px;
@@ -135,7 +297,23 @@
 
   p {
     font-size: 18px;
-    margin: 0;
+    margin: 0 0 16px 0;
+  }
+
+  .clear-search-btn {
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #0056b3;
+    }
   }
 }
 
@@ -214,6 +392,11 @@
   }
 }
 
+// פונקציה להחזרת שם הנושא
+.getTopicTitle {
+  // זה יטופל ב-TypeScript
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -241,6 +424,31 @@
 
   .content {
     padding: 20px;
+  }
+
+  .search-results {
+    margin-bottom: 24px;
+  }
+
+  .tip-item {
+    .tip-content {
+      padding: 14px;
+
+      .tip-image {
+        width: 50px;
+        height: 50px;
+      }
+
+      .tip-info {
+        .tip-title {
+          font-size: 15px;
+        }
+
+        .tip-preview {
+          font-size: 12px;
+        }
+      }
+    }
   }
 
   .topic-item {

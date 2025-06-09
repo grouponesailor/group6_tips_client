@@ -1,12 +1,12 @@
 <div class="topics-container">
   <header class="header">
-    <button class="close-btn" (click)="onClose()" aria-label="סגור">
-      <span class="close-icon">✕</span>
-    </button>
     <div class="header-content">
       <div class="logo">📚</div>
       <h1 class="title">מרכז הדרכה</h1>
     </div>
+    <button class="close-btn" (click)="onClose()" aria-label="סגור">
+      <span class="close-icon">✕</span>
+    </button>
   </header>
 
   <div class="content">
@@ -15,7 +15,7 @@
         <span class="search-icon">🔍</span>
         <input
           type="text"
-          placeholder="חפש נושאים..."
+          placeholder="חפש נושאים או טיפים..."
           [(ngModel)]="searchQuery"
           (input)="onSearchChange(searchQuery)"
           class="search-input"
@@ -23,32 +23,88 @@
       </div>
     </div>
 
-    <div class="topics-section">
+    <div class="results-section">
       <div *ngIf="loading" class="loading">
         <div class="spinner"></div>
-        <span>טוען נושאים...</span>
+        <span>מחפש...</span>
       </div>
 
-      <div *ngIf="!loading && topics.length === 0" class="no-results">
-        <span class="no-results-icon">📝</span>
-        <p>לא נמצאו נושאים</p>
-      </div>
-
-      <div *ngIf="!loading && topics.length > 0" class="topics-list">
-        <div
-          *ngFor="let topic of topics"
-          class="topic-item"
-          (click)="onTopicClick(topic)"
-        >
-          <div class="topic-content">
-            <div class="topic-icon">{{ topic.icon }}</div>
-            <div class="topic-info">
-              <h3 class="topic-title">{{ topic.title }}</h3>
-              <span class="tip-count">{{ topic.tipCount }} טיפים</span>
+      <!-- תוצאות חיפוש בטיפים -->
+      <div *ngIf="!loading && showTipResults && searchResults.length > 0" class="search-results">
+        <h2 class="results-title">
+          <span class="results-icon">💡</span>
+          טיפים שנמצאו ({{ searchResults.length }})
+        </h2>
+        <div class="tips-list">
+          <div
+            *ngFor="let tip of searchResults; let i = index"
+            class="tip-item search-result"
+            [class.read]="tip.isRead"
+            (click)="onTipClick(tip, i)"
+          >
+            <div class="tip-content">
+              <div class="tip-image" *ngIf="tip.imageUrl">
+                <img [src]="tip.imageUrl" [alt]="tip.title" />
+              </div>
+              <div class="tip-info">
+                <div class="tip-topic">
+                  <span class="topic-name">{{ getTopicTitle(tip.topicId) }}</span>
+                </div>
+                <h3 class="tip-title">{{ tip.title }}</h3>
+                <p class="tip-preview">{{ tip.content | slice:0:120 }}...</p>
+                <div class="tip-meta">
+                  <div class="badges-container">
+                    <span *ngIf="tip.isNew" class="new-badge">חדש</span>
+                    <span *ngIf="tip.isRead" class="read-badge">
+                      <span class="check-icon">✓</span>
+                      נקרא
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="tip-arrow">
+                <span class="arrow">›</span>
+              </div>
             </div>
-            <div class="topic-badges">
-              <span *ngIf="topic.isNew" class="new-badge">חדש</span>
-              <span class="arrow">›</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- רשימת נושאים -->
+      <div class="topics-section">
+        <h2 *ngIf="searchQuery && !showTipResults" class="results-title">
+          <span class="results-icon">📂</span>
+          נושאים שנמצאו ({{ topics.length }})
+        </h2>
+        <h2 *ngIf="!searchQuery" class="results-title">
+          <span class="results-icon">📂</span>
+          כל הנושאים
+        </h2>
+
+        <div *ngIf="!loading && topics.length === 0" class="no-results">
+          <span class="no-results-icon">📝</span>
+          <p>לא נמצאו תוצאות עבור "{{ searchQuery }}"</p>
+          <button class="clear-search-btn" (click)="onSearchChange('')">
+            נקה חיפוש
+          </button>
+        </div>
+
+        <div *ngIf="!loading && topics.length > 0" class="topics-list">
+          <div
+            *ngFor="let topic of topics"
+            class="topic-item"
+            (click)="onTopicClick(topic)"
+          >
+            <div class="topic-content">
+              <div class="topic-icon">{{ topic.icon }}</div>
+              <div class="topic-info">
+                <h3 class="topic-title">{{ topic.title }}</h3>
+                <span class="tip-count">{{ topic.tipCount }} טיפים</span>
+              </div>
+              <div class="topic-badges">
+                <span *ngIf="topic.isNew" class="new-badge">חדש</span>
+                <span class="arrow">›</span>
+              </div>
             </div>
           </div>
         </div>

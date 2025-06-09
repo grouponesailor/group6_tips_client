@@ -25,21 +25,21 @@
 
       <div class="tip-actions">
         <button 
-          class="action-btn primary" 
-          (click)="markAsHelpful()"
-          [disabled]="currentIndex === tips.length - 1"
+          class="action-btn secondary" 
+          (click)="previousTip()"
+          [disabled]="currentIndex === 0"
         >
-          הבא
+          קודם
         </button>
         <div class="progress-indicator">
           {{ currentIndex + 1 }}/{{ tips.length }}
         </div>
         <button 
-          class="action-btn secondary" 
-          (click)="skipTip()"
+          class="action-btn primary" 
+          (click)="markAsHelpful()"
           [disabled]="currentIndex === tips.length - 1"
         >
-          דלג
+          הבא
         </button>
       </div>
 
